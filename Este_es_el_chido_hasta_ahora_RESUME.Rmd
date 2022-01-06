@@ -1,0 +1,125 @@
+---
+title: "Aram Ramos' resume"
+author: Aram Ramos
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    css: ['custom_resume.css', 'styles.css', 'resume']
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: true
+# uncomment this line to produce HTML and PDF in RStudio:
+#knit: pagedown::chrome_print
+---
+```{r, include=FALSE}
+
+setwd("C:/Users/arams/OneDrive/Documents/CV_R")
+
+knitr::opts_chunk$set(
+  results = 'asis',
+  echo = FALSE
+)
+
+library(tidyverse)
+library(readxl)
+library(glue)
+
+contact_info<-read_excel("Aram_resume.xlsx", sheet = "contact_info")
+position_data<-read_excel("Aram_resume.xlsx", sheet = "Positions_resume")
+skills<-read_excel("Aram_resume.xlsx", sheet = "Skills")
+software<-read_excel("Aram_resume.xlsx", sheet = "Languages")
+
+
+
+PDF_EXPORT <- FALSE
+
+source("parsing_functions.R")
+
+
+```
+
+
+Aside
+================================================================================
+
+
+Contact {#contact}
+--------------------------------------------------------------------------------
+```{r}
+
+
+a=contact_info %>% 
+  glue_data("- <i class='fa fa-{icon}'></i> [**{contact}**]({link})")
+b="- <i class='fa fa-map-marker-alt'></i> Seattle, WA"  
+cc="- <i class='fa fa-phone'></i> (916) 707 2799"
+
+print(a,b,cc)  
+ 
+
+  
+
+
+
+```
+
+
+Skills {#skills}
+--------------------------------------------------------------------------------
+```{r}
+skills%>%
+  glue_data("- <i></i>{Skills}")
+```
+
+Software {#languages}
+-----------------------
+```{r}
+software%>%
+  glue_data("<div class='skill-bar' style=\"background: linear-gradient(to right,#969696 {ab}%,#d9d9d9 {ba}% 100%);\">{language}</div>")%>%
+  print()
+
+```
+
+
+
+Activities {#moreinfo}
+--------------------------------------------------------------------------------
+- <i class='fa fa-bicycle'></i> Biking
+- <i class='fa fa-swimmer'></i> Diving
+- <i class='fa fa-hand-holding-heart'></i> Volunteering
+
+
+MORE INFO {#mooreinfo}
+-----------------------------------------
+[**See full CV for a complete list of positions.**](https://drive.google.com/file/d/1INcSJm3tGRGwiN-C0WQUMQInv6LKwqxG/view)
+
+
+Disclaimer {#disclaimer}
+------------------------
+Made with the R package [**pagedown**](https://github.com/rstudio/pagedown).
+
+Last updated on 12/27/2020.
+
+
+
+
+Main
+================================================================================
+Aram Ramos {#title}
+--------------------------------------------------------------------------------
+Data Scientist & Demographer with a strong knowledge of statistics, demography and analytical skills. 10+ years
+of hands-on experience leveraging data science and demographic analysis to solve complex problems, drive
+actionable insights, guide decision-making process and empower teams and organizations with data. Passionate
+about education and working with cross-functional teams.
+
+
+Relevant Experience {data-icon=suitcase}
+--------------------------------------------------------------------------------
+```{r}
+position_data %>% print_section('positions')
+```
+
+Education {data-icon=graduation-cap data-concise=true}
+--------------------------------------------------------------------------------
+```{r}
+position_data %>% print_section('education')
+```
+
